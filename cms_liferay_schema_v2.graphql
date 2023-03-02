@@ -155,8 +155,8 @@ type NotificationTemplate {
 
 type GetNbaOfferAssets { nbaOfferAssets: Object! }
 
-type NBAOfferResponseData { nBAOfferAssets: GetNbaOfferAssets }
+type NBAOfferResponseData { nBAOfferAssets: GetNbaOfferAssets! }
 
-type NBAOfferResponse{ data: NBAOfferResponseData }
+type NBAOfferResponse{ data: NBAOfferResponseData! }
 
-scalar Object
+scalar Object!
