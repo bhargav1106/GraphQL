@@ -1,0 +1,162 @@
+type Query {
+    "Get Dashboard by passing dashboard Id"
+    getDashboardById(input: GetDashboardByIdInput!): Dashboard!
+
+    "Get Countries"
+    getCountries: [Country!]
+
+    "Get eSIM Support Device list"
+    getESimSupportDevices: [ESimSupportDevice!]
+
+    "Get FAQs"
+    getFaq(input: GetFaqInput!): [FAQ!]
+
+    "Get Microapp Content"
+    microappContent(contextData: MicroappContextData!): MicroappContents!
+
+    "Get Du shops by passing reason"
+    getDuShops(input: GetDuShopsInput!): [DuShop!]
+	
+    "It return object having 'networkOperatorType' property with one of three possible value 'roaming-network' or 'national-non-du-network' or 'du-network'"
+    getNetworkOperatorType(input: GetNetworkOperatorTypeInput!): NetworkOperatorType!
+	
+    "Get Roaming partners"
+    roamingPartners(input: InputRoamingPartnerContextData!): [RoamingPartners!]
+
+    "Get Notification Template"
+    getNotificationTemplateContent(templateId: String!): [GetNotificationTemplates!]
+
+    "Get NBA Offer"
+    nBAOfferAssets(offerId: String!): [NBAOfferResponse!]
+}
+
+input GetDashboardByIdInput {
+    id: String!
+}
+
+input GetFaqInput {
+    sceenId: String!
+    userType: String!
+}
+
+input MicroappContextData {
+    contextArray : [MicroappContextArray!]
+}
+
+input MicroappContextArray {
+    contextName: String !
+    contextValue : String!
+}
+
+input GetDuShopsInput {
+    reasonCategory: String!
+}
+
+input GetNetworkOperatorTypeInput {
+    networkUniqueIdentifier: String!
+}
+
+input InputRoamingPartnerContextData {
+    filter: Object!
+}
+
+
+"It return dashboard array"
+type Dashboard {
+    composables: [Composable!]
+}
+
+type DashboardAction {
+    type: String!
+    name: String!
+    data: String!
+}
+
+type Content {
+    title: String!
+    description: String!
+    background: String!
+    actions: [DashboardAction!]
+}
+
+type Holder {
+    width: String!
+    height: String!
+    order: String!
+    proportion: String!
+    padding: String!
+    margin: String!
+    contents: [Content!]
+    composables: [Composable!]
+}
+
+type Composable {
+    wrap: String!
+    direction: String!
+    justify: String!
+    align: String!
+    position: String!
+    holders: [Holder!]
+}
+
+type ErrorCode {
+    code: String!
+    type: String!
+    message: String!
+}
+
+type Country {
+    countryName: String!
+    countryISOCode: String!
+}
+
+type ESimSupportDevice {
+    supportedDeviceName: String!
+    supportedDeviceModle: [String!]
+}
+
+type FAQ {
+    question: String!
+    answers: String!
+}
+
+"Object having 'networkOperatorType' property with one of three possible value 'roaming-network' or 'national-non-du-network' or 'du-network'"
+type NetworkOperatorType {
+    networkName: String!
+    networkUniqueIdentifier: String!
+    networkOperatorType: String!
+}
+
+type DuShop {
+    shopId: String!
+    name: String!
+    address: String!
+    latitude: String!
+    longitude: String!
+}
+
+
+type RoamingPartners {
+    roamingPartner: Object!
+}
+
+type MicroappContents{
+    resultJSON: Object!
+}
+
+type GetNotificationTemplates { 
+    notificationTemplate: NotificationTemplate! 
+}
+
+type NotificationTemplate { 
+    templateName: String!
+    templatePath: String! 
+}
+
+type GetNbaOfferAssets { nbaOfferAssets: Object! }
+
+type NBAOfferResponseData { nBAOfferAssets: GetNbaOfferAssets }
+
+type NBAOfferResponse{ data: NBAOfferResponseData }
+
+scalar Object
